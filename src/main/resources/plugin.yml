@@ -1,0 +1,6 @@
+name: DCSync
+version: ${project.version}
+main: net.DarkcrestMC.DCSync.DCSync
+authors: [Jacksonnn]
+description: Discord and Minecraft together for DarkcrestMC yay`
+website: play.darkcrestmc.net
