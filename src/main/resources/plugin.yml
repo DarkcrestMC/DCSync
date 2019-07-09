@@ -4,3 +4,10 @@ main: net.DarkcrestMC.DCSync.DCSync
 authors: [Jacksonnn]
 description: Discord and Minecraft together for DarkcrestMC yay`
 website: play.darkcrestmc.net
+api-version: 1.13
+commands:
+  link:
+    aliases: [verify]
+    usage: /<command>
+  discord:
+    usage: /<command>
