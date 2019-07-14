@@ -1,11 +1,12 @@
 package net.DarkcrestMC.DCSync;
 
 import net.DarkcrestMC.DCSync.configuration.ConfigManager;
+import net.DarkcrestMC.DCSync.general.DiscordChatEvent;
 import net.DarkcrestMC.DCSync.general.MCDiscordCommand;
+import net.DarkcrestMC.DCSync.general.MinecraftChatEvent;
 import net.DarkcrestMC.DCSync.link.DiscordLinkEventHandler;
 import net.DarkcrestMC.DCSync.link.LinkCommand;
 import net.DarkcrestMC.DCSync.link.MCLinkEventHandler;
-import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import org.bukkit.Bukkit;
@@ -23,11 +24,15 @@ public final class DCSync extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
+
         new ConfigManager();
+
+        startBot();
+
+
         registerCommands();
         registerListeners();
 
-        startBot();
 
         Bukkit.getServer().getLogger().info("DCSync is enabled!");
 
@@ -41,14 +46,16 @@ public final class DCSync extends JavaPlugin {
 
     void startBot() {
         try {
-            jda = new JDABuilder(AccountType.BOT).setToken(ConfigManager.defaultConfig.get().getString("Discord.serverToken")).buildBlocking();
-        } catch (LoginException | InterruptedException e) {
+            jda = new JDABuilder(ConfigManager.defaultConfig.get().getString("Discord.serverToken")).build();
+        } catch (LoginException e) {
             e.printStackTrace();
         }
     }
 
     void registerListeners() {
         pm.registerEvents(new MCLinkEventHandler(), this);
+        pm.registerEvents(new MinecraftChatEvent(), this);
+        jda.addEventListener(new DiscordChatEvent());
         jda.addEventListener(new DiscordLinkEventHandler());
     }
 

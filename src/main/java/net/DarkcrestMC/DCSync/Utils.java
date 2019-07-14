@@ -26,8 +26,8 @@ public class Utils {
 
         embed.setColor(new Color(
                 ConfigManager.langConfig.get().getInt("Language.EmbedColor.R"),
-                ConfigManager.langConfig.get().getInt("Language.EmbedColor.B"),
-                ConfigManager.langConfig.get().getInt("Language.EmbedColor.G")
+                ConfigManager.langConfig.get().getInt("Language.EmbedColor.G"),
+                ConfigManager.langConfig.get().getInt("Language.EmbedColor.B")
         ));
 
         return embed;

@@ -7,7 +7,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
-public class DiscordChatEvent  extends ListenerAdapter {
+public class DiscordChatEvent extends ListenerAdapter {
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         User user = event.getAuthor();

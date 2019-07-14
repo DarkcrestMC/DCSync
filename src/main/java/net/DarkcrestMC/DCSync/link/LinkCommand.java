@@ -20,7 +20,7 @@ public class LinkCommand implements CommandExecutor {
         if (!(sender instanceof Player)) {
             sender.sendMessage(Utils.errorPrefix + "Only players can execute this command!");
         } else {
-            Player player = (Player) sender;
+            Player player = ((Player) sender).getPlayer();
 
             if (Utils.checkUserConfirmed(player)) {
                 sender.sendMessage(Utils.errorPrefix + "You are already verified!");

@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
+}
+
+mainClassName = 'net.DarkcrestMC.DCSync.DCSync'
+group 'net.DarkcrestMC.DCSync'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+version '1.0'
+def jdaVersion = '3.8.3_464'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        url  "https://dl.bintray.com/dv8fromtheworld/maven"
+    }
+    maven {
+        url "https://hub.spigotmc.org/nexus/content/repositories/snapshots"
+    }
+    maven {
+        url "https://oss.sonatype.org/content/groups/public"
+    }
+    mavenLocal()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile "net.dv8tion:JDA:$jdaVersion"
+    compile "org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT", {
+        ext { fatJarExclude = true }
+    }
+}
+
+compileJava.options.encoding = 'UTF-8'
