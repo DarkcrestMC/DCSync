@@ -1,10 +1,13 @@
 package net.DarkcrestMC.DCSync.link;
 
+import net.DarkcrestMC.DCSync.DCSync;
 import net.DarkcrestMC.DCSync.Utils;
 import net.DarkcrestMC.DCSync.configuration.ConfigManager;
+import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,6 +17,14 @@ import org.bukkit.entity.Player;
 public class LinkCommand implements CommandExecutor {
 
     Guild guild;
+    DCSync plugin;
+    JDA jda;
+
+    public LinkCommand(Guild guild, DCSync plugin, JDA jda) {
+        this.guild = guild;
+        this.plugin = plugin;
+        this.jda = jda;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -22,17 +33,24 @@ public class LinkCommand implements CommandExecutor {
         } else {
             Player player = ((Player) sender).getPlayer();
 
-            if (Utils.checkUserConfirmed(player)) {
-                sender.sendMessage(Utils.errorPrefix + "You are already verified!");
+            if (args.length != 1) {
+                sender.sendMessage(Utils.errorPrefix + "/verify <code>");
             } else if (Utils.getUserStatus(player) == null) {
                 sender.sendMessage(Utils.errorPrefix + "There is not a pending verification code for your user!");
-            } else if (args.length != 1) {
-                sender.sendMessage(Utils.errorPrefix + "/verify <code>");
-            } else if (args[0] != Utils.getUserCode(player)) {
+            } else if (Utils.checkUserConfirmed(player)) {
+                sender.sendMessage(Utils.errorPrefix + "You are already verified!");
+            } else if (!(args[0].equalsIgnoreCase(Utils.getUserCode(player)))) {
                 sender.sendMessage(Utils.errorPrefix + "That is not the valid code. Please check again!");
             } else {
                 String discordID = Utils.getUserDiscordID(player);
-                Member target = guild.getMemberById(discordID);
+
+                if (discordID == null) {
+                    Bukkit.getServer().broadcastMessage(Utils.serverPrefix + "DiscordID null:" + player.getName());
+                }
+
+                Member target = guild
+                        .getMemberById(
+                                discordID);
 
                 if (target == null) {
                     ConfigManager.defaultConfig.get().set("PlayerCodes." + player.getUniqueId() + ".Status", null);

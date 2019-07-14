@@ -9,6 +9,7 @@ import net.DarkcrestMC.DCSync.link.LinkCommand;
 import net.DarkcrestMC.DCSync.link.MCLinkEventHandler;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.Guild;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,8 +19,9 @@ import javax.security.auth.login.LoginException;
 public final class DCSync extends JavaPlugin {
 
     public static DCSync plugin;
-    JDA jda;
+    public static JDA jda;
     PluginManager pm = Bukkit.getServer().getPluginManager();
+    public static Guild guild;
 
     @Override
     public void onEnable() {
@@ -29,6 +31,7 @@ public final class DCSync extends JavaPlugin {
 
         startBot();
 
+        Bukkit.getScheduler().runTaskLater(plugin,()->guild = jda.getGuilds().get(0),100L);
 
         registerCommands();
         registerListeners();
@@ -60,7 +63,7 @@ public final class DCSync extends JavaPlugin {
     }
 
     void registerCommands() {
-        this.getCommand("link").setExecutor(new LinkCommand());
+        this.getCommand("link").setExecutor(new LinkCommand(guild, plugin, jda));
         this.getCommand("discord").setExecutor(new MCDiscordCommand());
     }
 }

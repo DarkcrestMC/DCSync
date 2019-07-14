@@ -19,7 +19,7 @@ public class MinecraftChatEvent implements Listener {
         if (!event.getMessage().startsWith("/")) {
             TextChannel channel = jda.getTextChannelsByName(ConfigManager.defaultConfig.get().getString("Discord.logChannel"), true).get(0);
 
-            channel.sendMessage(Utils.createEmbed(event.getPlayer().getName(), event.getMessage()).build()).queue();
+            channel.sendMessage(Utils.createEmbed(event.getPlayer().getName(), event.getMessage()).build()).complete();
         }
     }
 }

@@ -22,18 +22,15 @@ public class MCLinkEventHandler implements Listener {
         //if player isn't in the config (not verified), tell the user to verify!
 
         Player player = event.getPlayer();
-        UUID playeruuid = player.getUniqueId();
-        String userPath = "PlayerCodes." + playeruuid.toString();
-        if (Utils.checkUserConfirmed(player)) {
-            //do nothing
-        } else if (Utils.getUserStatus(player) == null) {
+        UUID playerUUID = player.getUniqueId();
+        if (Utils.getUserStatus(player) == null) {
             try {
-                Bukkit.getPlayer(playeruuid).sendMessage(Utils.serverPrefix + "I see you haven't signed up for our discord! Use this link to join and verify your user: " + Utils.discordLink);
+                Bukkit.getPlayer(playerUUID).sendMessage(Utils.serverPrefix + "I see you haven't signed up for our discord! Use this link to join and verify your user: " + Utils.discordLink);
             } catch (Exception e) {
                 Bukkit.getServer().getLogger().warning(e.getLocalizedMessage());
             }
-        } else {
-            Bukkit.getPlayer(playeruuid).sendMessage(Utils.serverPrefix + "You have a confirmation code for discord waiting! Please check your private messages with the DCSync Bot!");
+        } else if (Utils.checkUserUnconfirmed(player)) {
+            Bukkit.getPlayer(playerUUID).sendMessage(Utils.serverPrefix + "You have a confirmation code for discord waiting! Please check your private messages with the DCSync Bot!");
         }
     }
 

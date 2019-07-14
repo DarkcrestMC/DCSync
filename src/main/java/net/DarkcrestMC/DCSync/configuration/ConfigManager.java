@@ -31,8 +31,9 @@ public class ConfigManager {
              */
             config.addDefault("Discord", "");
             config.addDefault("Discord.inviteLink", "https://discord.gg/rEtpysw");
-            config.addDefault("Discord.serverToken", "");
+            config.addDefault("Discord.serverToken", "NTk4MDA4NDUzNjIwODI2MTEz.XSpzzg.kD2cQ8ZtxXrsZ0ToHRibelUk3uI");
             config.addDefault("Discord.serverPrefix", "?");
+            config.addDefault("Discord.logChannel", "600002775618682899");
 
             config.addDefault("PlayerCodes", "");
 
@@ -42,12 +43,10 @@ public class ConfigManager {
 
             config.addDefault("Language", "");
 
-            config.addDefault("Language.serverPrefix", "ChatColor.DARK_GRAY + [ + ChatColor.GRAY + Darkcrest + ChatColor.DARK_GRAY + ] + ChatColor.YELLOW + \" \"");
-            config.addDefault("Language.serverErrorPrefix", "ChatColor.DARK_GRAY + [ + ChatColor.GRAY + Darkcrest + ChatColor.DARK_GRAY + ] + ChatColor.DARK_RED + Error! + ChatColor.RED + \" \"");
+            config.addDefault("Language.serverPrefix", "&8[&7&lDarkcrest&8]&e ");
+            config.addDefault("Language.serverErrorPrefix", "&8[&7&lDarkcrest&8] &4Error!&c ");
 
             config.addDefault("Language.serverIP", "play.darkcrestmc.net");
-
-            config.addDefault("Lanauge.embedColor", "");
             config.addDefault("Language.embedColor.R", 139);
             config.addDefault("Language.embedColor.G", 65);
             config.addDefault("Language.embedColor.B", 196);

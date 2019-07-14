@@ -2,14 +2,15 @@ package net.DarkcrestMC.DCSync;
 
 import net.DarkcrestMC.DCSync.configuration.ConfigManager;
 import net.dv8tion.jda.core.EmbedBuilder;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.awt.*;
 import java.util.Random;
 
 public class Utils {
-    public static String serverPrefix = ConfigManager.langConfig.get().getString("Language.serverPrefix");
-    public static String errorPrefix = ConfigManager.langConfig.get().getString("Language.serverErrorPrefix");
+    public static String serverPrefix = colored(ConfigManager.langConfig.get().getString("Language.serverPrefix"));
+    public static String errorPrefix = colored(ConfigManager.langConfig.get().getString("Language.serverErrorPrefix"));
     public static String discordLink = ConfigManager.defaultConfig.get().getString("Discord.inviteLink");
     public static String discordPrefix = ConfigManager.defaultConfig.get().getString("Discord.serverPrefix");
     public static String serverIP = ConfigManager.langConfig.get().getString("Language.serverIP");
@@ -34,34 +35,50 @@ public class Utils {
     }
 
     public static String getUserStatus(Player player) {
-        if (ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId() + ".Status") == null) {
+        if (ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId().toString() + ".Status") == null) {
             return null;
         }
 
-        return ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId() + ".Status");
+        return ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId().toString() + ".Status");
     }
 
     public static String getUserDiscordID (Player player) {
-        if (ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId() + ".DiscordID") == null) {
+        if (ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId().toString() + ".DiscordID") == null) {
             return null;
         }
 
-        return ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId() + ".DiscordID");
+        return ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId().toString() + ".DiscordID");
     }
 
     public static String getUserCode(Player player) {
-        if (ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId() + ".Code") == null) {
+        if (ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId().toString() + ".Code") == null) {
             return null;
         }
 
-        return ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId() + ".Code");
+        return ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId().toString() + ".Code");
     }
 
     public static boolean checkUserConfirmed(Player player) {
-        return ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId() + "Status").equalsIgnoreCase("CONFIRMED");
+        if (ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId().toString() + ".Status").equalsIgnoreCase("CONFIRMED")) {
+            return true;
+        } else if (ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId().toString() + ".Status").equalsIgnoreCase("UNCONFIRMED")) {
+            return false;
+        } else {
+            return false;
+        }
     }
 
     public static boolean checkUserUnconfirmed(Player player) {
-        return ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId() + "Status").equalsIgnoreCase("UNCONFIRMED");
+        if (ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId().toString() + ".Status").equalsIgnoreCase("UNCONFIRMED")) {
+            return true;
+        } else if (ConfigManager.defaultConfig.get().getString("PlayerCodes." + player.getUniqueId().toString() + ".Status").equalsIgnoreCase("CONFIRMED")) {
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    public static String colored(String format) {
+        return ChatColor.translateAlternateColorCodes('&', format);
     }
 }
