@@ -30,10 +30,11 @@ public class ConfigManager {
                     KJeremiah's UUID:
              */
             config.addDefault("Discord", "");
-            config.addDefault("Discord.inviteLink", "https://discord.gg/rEtpysw");
-            config.addDefault("Discord.serverToken", "NTk4MDA4NDUzNjIwODI2MTEz.XSpzzg.kD2cQ8ZtxXrsZ0ToHRibelUk3uI");
+            config.addDefault("Discord.inviteLink", "https://discord.gg/W3vyCwC");
+            config.addDefault("Discord.botToken", "");
             config.addDefault("Discord.serverPrefix", "?");
-            config.addDefault("Discord.logChannel", "600002775618682899");
+            config.addDefault("Discord.logChannel", "600029817022185532");
+            config.addDefault("Discord.guildID", "600025376294699038");
 
             config.addDefault("PlayerCodes", "");
 

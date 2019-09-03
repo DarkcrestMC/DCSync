@@ -44,9 +44,15 @@ public class LinkCommand implements CommandExecutor {
             } else {
                 String discordID = Utils.getUserDiscordID(player);
 
+                Bukkit.getServer().broadcastMessage(player.getName() + ": " + discordID);
+
                 if (discordID == null) {
                     Bukkit.getServer().broadcastMessage(Utils.serverPrefix + "DiscordID null:" + player.getName());
+                    return true;
                 }
+
+                Bukkit.getServer().broadcastMessage("Guild Name: " + guild.getName());
+                Bukkit.getServer().broadcastMessage("Guild ID:" + guild.getId());
 
                 Member target = guild
                         .getMemberById(

@@ -31,7 +31,7 @@ public final class DCSync extends JavaPlugin {
 
         startBot();
 
-        Bukkit.getScheduler().runTaskLater(plugin,()->guild = jda.getGuilds().get(0),100L);
+        guild = jda.getGuildsByName("Jacksonnn Development", true).get(0);
 
         registerCommands();
         registerListeners();
@@ -43,13 +43,12 @@ public final class DCSync extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
         Bukkit.getServer().getLogger().info("DCSync is disabled!");
     }
 
     void startBot() {
         try {
-            jda = new JDABuilder(ConfigManager.defaultConfig.get().getString("Discord.serverToken")).build();
+            jda = new JDABuilder(ConfigManager.defaultConfig.get().getString("Discord.botToken")).build();
         } catch (LoginException e) {
             e.printStackTrace();
         }
